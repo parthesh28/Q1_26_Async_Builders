@@ -10,7 +10,7 @@ const commitment: Commitment = "confirmed";
 const connection = new Connection("https://api.devnet.solana.com", commitment);
 
 // Mint address
-const mint = new PublicKey("AgapPgUumbnxK1oPPL2C4MdRLM1xkSGxxut6GET4UB3m");
+const mint = new PublicKey("HDECQTLc6FdR5VwzTgSujfWgtdmnsFnpJq8ctJQirW1T");
 
 // Recipient address
 const to = new PublicKey("PaRthHNJza6pPFnz4iX7T1YFQfJrnodKTNMjacVcaQq");
@@ -35,6 +35,7 @@ const to = new PublicKey("PaRthHNJza6pPFnz4iX7T1YFQfJrnodKTNMjacVcaQq");
             to,
         );
 
+        const amount = 1 * 10 ** 6;
         // Transfer the new token to the "toTokenAccount" we just created
         let signature = await transfer(
             connection,
@@ -42,7 +43,7 @@ const to = new PublicKey("PaRthHNJza6pPFnz4iX7T1YFQfJrnodKTNMjacVcaQq");
             fromAta.address,
             toAta.address,
             keypair.publicKey,
-            50_000_000,
+            amount,
         );
 
         console.log("Transaction signature" + signature);

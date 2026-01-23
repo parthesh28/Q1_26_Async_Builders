@@ -20,7 +20,7 @@ const mint = generateSigner(umi);
         mint,
         name: "a beautiful rug",
         symbol: "GENERUG",
-        uri: "https://gateway.irys.xyz/2YGnsF3DNqtyde6qHs6U3EuttkwM99RbSU43JUbQivHt",
+        uri: " https://gateway.irys.xyz/Ft68YJYgue1jVQJLd3GvxBfu1GSzLLCX5DyHt1SkBhJC",
         sellerFeeBasisPoints: percentAmount(5),
     });
     let result = await tx.sendAndConfirm(umi);
@@ -28,5 +28,5 @@ const mint = generateSigner(umi);
     
     console.log(`Succesfully Minted! Check out your TX here:\nhttps://explorer.solana.com/tx/${signature}?cluster=devnet`)
 
-    console.log("Mint Address: ", mint.publicKey);
+    console.log("Mint Address: ", mint.publicKey); //H1fJxVXQHanDREShJL2juY1r3nCgGiHcQFf5zUoi6oru
 })();

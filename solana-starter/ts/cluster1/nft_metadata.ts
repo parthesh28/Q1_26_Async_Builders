@@ -17,7 +17,7 @@ umi.use(signerIdentity(signer));
         // Follow this JSON structure
         // https://docs.metaplex.com/programs/token-metadata/changelog/v1.0#json-structure
 
-        const image = "https://gateway.irys.xyz/2YGnsF3DNqtyde6qHs6U3EuttkwM99RbSU43JUbQivHt"
+        const image = "https://gateway.irys.xyz/HEpSwfYcvsCUurcdJ27n87VvJ3sS6SEy8ZHfmdCDvv1b"
         const metadata = {
             name: "a beautiful rug",
             symbol: "GENERUG",
