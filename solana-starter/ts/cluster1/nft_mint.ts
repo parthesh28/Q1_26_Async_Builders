@@ -20,7 +20,7 @@ const mint = generateSigner(umi);
         mint,
         name: "a beautiful rug",
         symbol: "GENERUG",
-        uri: " https://gateway.irys.xyz/Ft68YJYgue1jVQJLd3GvxBfu1GSzLLCX5DyHt1SkBhJC",
+        uri: "https://gateway.irys.xyz/Ft68YJYgue1jVQJLd3GvxBfu1GSzLLCX5DyHt1SkBhJC",
         sellerFeeBasisPoints: percentAmount(5),
     });
     let result = await tx.sendAndConfirm(umi);
