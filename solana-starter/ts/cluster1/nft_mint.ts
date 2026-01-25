@@ -29,4 +29,4 @@ const mint = generateSigner(umi);
     console.log(`Succesfully Minted! Check out your TX here:\nhttps://explorer.solana.com/tx/${signature}?cluster=devnet`)
 
     console.log("Mint Address: ", mint.publicKey); //H1fJxVXQHanDREShJL2juY1r3nCgGiHcQFf5zUoi6oru
-})();
+})();   
