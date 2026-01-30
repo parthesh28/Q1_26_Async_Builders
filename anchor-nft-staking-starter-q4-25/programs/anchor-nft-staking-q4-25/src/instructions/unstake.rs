@@ -1,4 +1,4 @@
-use anchor_lang::{accounts::signer, prelude::*};
+use anchor_lang::{ prelude::*};
 use mpl_core::{
     instructions::{RemovePluginV1CpiBuilder, UpdatePluginV1CpiBuilder},
     types::{FreezeDelegate, Plugin, PluginType},
@@ -19,14 +19,14 @@ pub struct Unstake<'info> {
         constraint = asset.owner == &CORE_PROGRAM_ID,
         constraint = !asset.data_is_empty() @ StakeError::AssetNotInitialized
     )]
-    /// Checked: Verified by mpl-core
+    /// CHECK: Verified by mpl-core
     pub asset : UncheckedAccount<'info>,
        #[account(
         mut,
         constraint = collection.owner == &CORE_PROGRAM_ID,
         constraint = !collection.data_is_empty() @ StakeError::AssetNotInitialized
     )]
-    /// Checked: Verified by mpl-core
+    /// CHECK: Verified by mpl-core
     pub collection: UncheckedAccount<'info>,
 
     #[account(
@@ -51,6 +51,7 @@ pub struct Unstake<'info> {
     pub user_account : Account<'info, UserAccount>,
 
     #[account(address = CORE_PROGRAM_ID)]
+     /// CHECK: Verified by address constraint
     pub core_program: UncheckedAccount<'info>,
     pub system_program: Program<'info, System>,
 }
