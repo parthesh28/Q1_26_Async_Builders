@@ -95,9 +95,10 @@ impl<'info> Unstake<'info> {
             .plugin_type(PluginType::FreezeDelegate)
             .invoke()?;
 
-        self.user_account.amount_staked -= 1;
-
-
+          match self.user_account.amount_staked.checked_sub(1) {
+            Some(x) => self.user_account.amount_staked = x,
+            None => return err!(StakeError::InvalidAsset), 
+        }
 
         Ok(())
     }

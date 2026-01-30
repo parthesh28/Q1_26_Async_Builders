@@ -81,6 +81,11 @@ impl<'info> Stake<'info> {
             bump: bumps.stake_account 
         });
 
+         match self.user_account.amount_staked.checked_add(1) {
+            Some(x) => self.user_account.amount_staked = x,
+            None => return err!(StakeError::MaxStakeReached),
+        }
+        
         Ok(())
 
     }
