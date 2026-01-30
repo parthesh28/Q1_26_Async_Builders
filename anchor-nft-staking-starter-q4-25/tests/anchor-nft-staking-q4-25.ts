@@ -276,8 +276,7 @@ describe("anchor-nft-staking-q4-25", () => {
       // Points should be awarded (time_elapsed * points_per_stake)
       assert.ok(userAccountAfter.points >= pointsBefore);
       console.log(
-        `NFT unstaked successfully, points earned: ${
-          userAccountAfter.points - pointsBefore
+        `NFT unstaked successfully, points earned: ${userAccountAfter.points - pointsBefore
         }`
       );
     });
