@@ -5,7 +5,7 @@ use anchor_spl::{
 };
 use constant_product_curve::{ConstantProduct, LiquidityPair};
 
-use crate::{errors::AMMError, state::Config};
+use crate::{errors::AmmError, state::Config};
 
 #[derive(Accounts)]
 pub struct Swap<'info> {
@@ -61,7 +61,7 @@ pub struct Swap<'info> {
 
 impl<'info> Swap<'info> {
     pub fn swap(&mut self, is_x: bool, amount: u64, min: u64) -> Result<()> {
-        require!(amount > 0, AMMError::InvalidAmount);
+        require!(amount > 0, AmmError::InvalidAmount);
 
         let mut curve = ConstantProduct::init(
             self.vault_x.amount,
