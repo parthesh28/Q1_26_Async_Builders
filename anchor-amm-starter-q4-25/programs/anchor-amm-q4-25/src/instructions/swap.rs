@@ -85,7 +85,7 @@ impl<'info> Swap<'info> {
 
     pub fn deposit_tokens(&mut self, is_x: bool, amount: u64) -> Result<()> {
         let (from, to) = match is_x {
-            true => (
+            true => (   
                 self.user_x.to_account_info(),
                 self.vault_x.to_account_info(),
             ),

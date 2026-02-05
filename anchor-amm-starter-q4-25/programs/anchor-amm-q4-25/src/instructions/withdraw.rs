@@ -9,10 +9,10 @@ use crate::{errors::AmmError, state::Config};
 
 #[derive(Accounts)]
 pub struct Withdraw<'info> {
-     pub user: Signer<'info>,
+    #[account(mut)]
+    pub user: Signer<'info>,
     pub mint_x: Account<'info, Mint>,
     pub mint_y: Account<'info, Mint>,
-
     #[account(
         has_one = mint_x,
         has_one = mint_y,
@@ -20,15 +20,13 @@ pub struct Withdraw<'info> {
         bump = config.config_bump,
     )]
     pub config: Account<'info, Config>,
-
-     #[account(
+    #[account(
         mut,
         seeds = [b"lp", config.key().as_ref()],
         bump = config.lp_bump,
     )]
     pub mint_lp: Account<'info, Mint>,
-
-     #[account(
+    #[account(
         mut,
         associated_token::mint = mint_x,
         associated_token::authority = config,
@@ -40,41 +38,31 @@ pub struct Withdraw<'info> {
         associated_token::authority = config,
     )]
     pub vault_y: Account<'info, TokenAccount>,
-
     #[account(
         mut,
         associated_token::mint = mint_x,
         associated_token::authority = user,
     )]
     pub user_x: Account<'info, TokenAccount>,
-
     #[account(
         mut,
         associated_token::mint = mint_y,
         associated_token::authority = user,
     )]
     pub user_y: Account<'info, TokenAccount>,
-
-     #[account(
+    #[account(
         mut,
         associated_token::mint = mint_lp,
         associated_token::authority = user,
     )]
     pub user_lp: Account<'info, TokenAccount>,
-
     pub token_program: Program<'info, Token>,
     pub system_program: Program<'info, System>,
     pub associated_token_program: Program<'info, AssociatedToken>,
 }
 
 impl<'info> Withdraw<'info> {
-    pub fn withdraw(
-        &mut self,
-        amount: u64, // Amount of LP tokens that the user wants to "burn"
-        min_x: u64,  // Minimum amount of token X that the user wants to receive
-        min_y: u64,  // Minimum amount of token Y that the user wants to receive
-    ) -> Result<()> {
-
+    pub fn withdraw(&mut self, amount: u64, min_x: u64, min_y: u64) -> Result<()> {
         require!(self.config.locked == false, AmmError::PoolLocked);
         require!(amount != 0, AmmError::InvalidAmount);
         require!(self.mint_lp.supply != 0, AmmError::NoLiquidityInPool);
@@ -109,7 +97,7 @@ impl<'info> Withdraw<'info> {
     }
 
     pub fn withdraw_tokens(&self, is_x: bool, amount: u64) -> Result<()> {
-          let (from, to) = match is_x {
+        let (from, to) = match is_x {
             true => (
                 self.vault_x.to_account_info(),
                 self.user_x.to_account_info(),
@@ -137,11 +125,10 @@ impl<'info> Withdraw<'info> {
         );
 
         transfer(ctx, amount)
-        
     }
 
     pub fn burn_lp_tokens(&self, amount: u64) -> Result<()> {
-         let ctx = CpiContext::new(
+        let ctx = CpiContext::new(
             self.token_program.to_account_info(),
             Burn {
                 mint: self.mint_lp.to_account_info(),
